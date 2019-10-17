@@ -38,7 +38,7 @@ const Pedido = ({pedido}) => {
     return (
         <Fragment>
             <div className="card my-2">
-                <div className="card-header">
+                <div className="card-header galletas-card-header">
                     <p className="card-title">
                         ID de pedido: #{pedido._id}
                     </p>
@@ -47,12 +47,12 @@ const Pedido = ({pedido}) => {
                         className="btn btn-danger offset-sm-11"
                         onClick={() => eliminarPedido(pedido._id)}
                     >
-                        <i className="fas fa-times-circle text-white"></i>
+                        <i className="fas fa-trash text-white"></i>
                     </button>
                 </div>
-                <div className="card-body">
+                <div className="card-body galletas-card-body">
                     <h2 className="card-title">Cliente: {pedido.cliente.nombre} {pedido.cliente.apellido}</h2>
-                    <ul className="list-group">
+                    <ul className="list-group text-center">
                         {
                             pedido.pedido.map(articulo => (
                                 <Galletas 
@@ -63,7 +63,7 @@ const Pedido = ({pedido}) => {
                         }
                     </ul>
                 </div>
-                <div className="card-footer">
+                <div className="card-footer text-center galletas-card-footer">
                     <p className="font-weight-bold">Total : $ {pedido.total}</p>
 
                 </div>

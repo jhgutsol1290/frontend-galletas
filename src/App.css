@@ -54,3 +54,15 @@ body {
 .cantidad-producto-header {
     background: #f3f9fb;
 }
+
+.galletas-card {
+    background: #f2f4fb;
+}
+
+.galletas-card-header, .galletas-card-footer {
+    background: #f2f4fb;
+}
+
+.galletas-card-body {
+    background: #fbfbfb;
+}
