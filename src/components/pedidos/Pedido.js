@@ -4,7 +4,7 @@ import Swal from 'sweetalert2'
 import clienteAxios from '../../config/axios'
 import Galletas from './Galletas';
 
-const Pedido = ({pedido}) => {
+const Pedido = ({ pedido }) => {
 
     const eliminarPedido = async id => {
 
@@ -29,10 +29,30 @@ const Pedido = ({pedido}) => {
               
             }
           })
-        
-        
-        
+    }
 
+    const cambiaEstado = id => {
+        Swal.fire({
+            title: '¿Pedido entregado?',
+            text: "Se cambiará el estado del pedido",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '¡Sí!'
+          }).then((result) => {
+            if (result.value) {
+                clienteAxios.put(`/pedidos/estado/${id}`)
+                    .then(res => {
+                        Swal.fire(
+                            'Éxito!',
+                            res.data.mensaje,
+                            'success'
+                          )
+                    })
+              
+            }
+          })
     }
 
     return (
@@ -42,6 +62,19 @@ const Pedido = ({pedido}) => {
                     <p className="card-title">
                         ID de pedido: #{pedido._id}
                     </p>
+                    {
+                        pedido.entregado ? (
+                            <span 
+                                class="badge badge-pill badge-success span-entregado"
+                                onClick={() => cambiaEstado(pedido._id)}
+                            >
+                            Entregado</span>
+                        ) : <span 
+                                class="badge badge-pill badge-warning span-entregado"
+                                onClick={() => cambiaEstado(pedido._id)}
+                            >
+                                Pendiente</span>
+                    }
                     <button 
                         type="button" 
                         className="btn btn-danger offset-sm-11"

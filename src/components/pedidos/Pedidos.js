@@ -16,6 +16,7 @@ const Pedidos = () => {
         const consultarAPI = async () => {
             const res = await clienteAxios.get('/pedidos')
             guardarPedidos(res.data)
+            
         }
 
         consultarAPI()
@@ -31,7 +32,8 @@ const Pedidos = () => {
         guardarPaginaActual(numeroPagina)
     }
 
-    if(!pedidos) return <Spinner />
+
+    if(pedidos.length === 0) return <Spinner />
 
     return (
         <Fragment>
