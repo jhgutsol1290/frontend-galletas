@@ -1,5 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 import Cliente from './Cliente'
 import clientAxios from '../../config/axios'
@@ -13,12 +14,25 @@ const Clientes = () => {
     const [elementosPorPagina] = useState(8);
 
     useEffect(() => {
+        const source = axios.CancelToken.source()
         const consultarAPI = async () => {
-            const respuesta = await clientAxios.get('/clientes')
-            guardarClientes(respuesta.data)
+            try {
+                const respuesta = await clientAxios.get('/clientes', {
+                    cancelToken: source.token
+                  })
+                  guardarClientes(respuesta.data)
+            } catch (error) {
+                console.log('Request cancelled')                
+            }
+            
         }
 
         consultarAPI()
+
+        return () => {
+            source.cancel()
+        }
+
     }, [clientes])
 
     //obtener los clientes actuales

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react';
+import axios from 'axios'
 
 import clienteAxios from '../../config/axios'
 import Spinner from '../layout/Spinner'
@@ -13,13 +14,24 @@ const Pedidos = () => {
     const [elementosPorPagina] = useState(10);
 
     useEffect(() => {
+        const source = axios.CancelToken.source()
         const consultarAPI = async () => {
-            const res = await clienteAxios.get('/pedidos')
-            guardarPedidos(res.data)
+            try {
+                const respuesta = await clienteAxios.get('/pedidos', {
+                    cancelToken: source.token
+                  })
+                  guardarPedidos(respuesta.data)
+            } catch (error) {
+                console.log('Request cancelled')                
+            }
             
         }
 
         consultarAPI()
+
+        return () => {
+            source.cancel()
+        }
     }, [pedidos]);
 
     //obtener los clientes actuales

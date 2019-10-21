@@ -65,12 +65,12 @@ const Pedido = ({ pedido }) => {
                     {
                         pedido.entregado ? (
                             <span 
-                                class="badge badge-pill badge-success span-entregado"
+                                className="badge badge-pill badge-success span-entregado"
                                 onClick={() => cambiaEstado(pedido._id)}
                             >
                             Entregado</span>
                         ) : <span 
-                                class="badge badge-pill badge-warning span-entregado"
+                                className="badge badge-pill badge-warning span-entregado"
                                 onClick={() => cambiaEstado(pedido._id)}
                             >
                                 Pendiente</span>
